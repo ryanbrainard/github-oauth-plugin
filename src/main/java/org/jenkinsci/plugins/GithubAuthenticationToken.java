@@ -74,8 +74,9 @@ public class GithubAuthenticationToken extends AbstractAuthenticationToken {
 
         this.userName = me.getLogin();
         authorities.add(SecurityRealm.AUTHENTICATED_AUTHORITY);
-        for (String name : gh.getMyOrganizations().keySet())
-            authorities.add(new GrantedAuthorityImpl(name));
+        for (GHOrganization org : me.getOrganizations()) {
+            authorities.add(new GrantedAuthorityImpl(org.getLogin()));
+        }
 	}
 
     /**
